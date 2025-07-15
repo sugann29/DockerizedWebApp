@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".github\workflows\dotnet-docker-ci.yml" />
+    <None Include=".github\workflows\main.yml" />
   </ItemGroup>
 
 </Project>
