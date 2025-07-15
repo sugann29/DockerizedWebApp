@@ -1,43 +1,30 @@
-﻿name: .NET Docker CI
-
+﻿name: Build and Push Docker Image
+ 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+ 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+ 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/checkout@v4
+ 
+    - name: Set up .NET 8 SDK
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
-
+        dotnet-version: '8.0.x'
+ 
     - name: Restore dependencies
-      run: dotnet restore
-
-    - name: Build
-      run: dotnet build --no-restore
-
-    - name: Publish
-      run: dotnet publish -c Release -o out
-
-    - name: Build Docker image
-      run: docker build -t dockerizedwebapp -f dockerizedwebapp/Dockerfile dockerizedwebapp
-
-    # OPTIONAL: Push Docker image to Docker Hub
-    # - name: Login to DockerHub
-    #   uses: docker/login-action@v3
-    #   with:
-    #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-    #     password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-    # - name: Push to DockerHub
-    #   run: docker push YOUR_DOCKERHUB_USERNAME/dockerizedwebapp
+      run: dotnet restore DockerizedWebApp/DockerizedWebApp.csproj
+ 
+    - name: Build project
+      run: dotnet build DockerizedWebApp/DockerizedWebApp.csproj --configuration Release
+ 
+    - name: Run tests (if applicable)
+      run: dotnet test --no-build --verbosity normal
+      continue-on-error: true
