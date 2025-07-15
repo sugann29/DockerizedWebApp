@@ -29,5 +29,5 @@ jobs:
       run: dotnet publish -c Release -o out
    
     - name: Build Docker image
-      working-directory: DockerizedWebApp/dockerizedwebapp
+      working-directory: DockerizedWebApp
       run: docker build -t dockerizedwebapp .
