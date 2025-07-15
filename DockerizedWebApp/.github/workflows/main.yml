@@ -30,7 +30,7 @@ jobs:
       run: dotnet publish -c Release -o out
 
     - name: Build Docker image
-      run: docker build -t dockerizedwebapp .
+      run: docker build -t assignment .
 
     # OPTIONAL: Push Docker image to Docker Hub
     # - name: Login to DockerHub
