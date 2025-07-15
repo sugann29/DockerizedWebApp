@@ -2,9 +2,9 @@
 
 on:
   push:
-    branches: [ "homepage_01" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "homepage_01" ]
+    branches: [ "main" ]
 
 jobs:
   build:
